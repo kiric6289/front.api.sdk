@@ -1,31 +1,143 @@
-# iikoFront API SDK #
-This repository contains iikoFront Api SDK (iikoFront is POS software, part of the iikoRms product).
+# iikoFront API SDK - Плагины
 
-Functionality of the iikoFront application can be extended using plugins. Special programming interface (API) allows you to change application behaviour in certain cases, insert custom information into the cheques on printing, display order details on the second monitor (customer screen), integrate with external booking systems (such as web-site, digital menu, mobile waiter's station), collect statistics and build reports, connect to the external payment systems and many other.
+Этот репозиторий содержит примеры плагинов для iikoFront API v9.
 
-# Getting started #
-iikoFront Api is based on .Net Framework 4.7.2 and provides a set of interfaces and classes. Basically you should create a class library, add a reference to the _Resto.Front.Api.Vx.dll_ and implement `IFrontPlugin` interface: 
+## 📁 Структура проекта
 
-```C#
-public sealed class MyPlugin : IFrontPlugin
-{
-    // add your plugin logic here
-}
+```
+front.api.sdk/
+├── MyFirstPlugin/           # Простой минимальный плагин
+├── MenuButtonPlugin/        # Плагин с кнопкой в меню дополнений
+├── build-*.bat             # Windows батники для сборки
+└── docs/                   # Документация API
 ```
 
-Most of Api features are available via static members of the `PluginContext` class. Just subscribe to the events, read or write entities, display messages, etc. Once you are ready, install your plugin into subdirectory of the _Plugins_ directory under iikoFront installation. From now on, iikoFront will load your library and create an instance of the plugin.
+## 🚀 Быстрый старт
 
-Note that debugging and running plugins requires a license, so you'll need to register as a plugin developer to obtain your id and get a dev license. This repository is about tech help only and doesn't touch legal questions. Please, contact us via official site for such purposes.
+### 1. Минимальный плагин (MyFirstPlugin)
+```bash
+# Windows
+build-minimal.bat
+```
 
-Links:
+### 2. Плагин с кнопкой в меню (MenuButtonPlugin)
+```bash
+# Windows
+build-menubutton.bat
+```
 
-- [Code reference API V4](https://iiko.github.io/front.api.sdk/v4/) (not supported from 7.0).
-- [Code reference API V5](https://iiko.github.io/front.api.sdk/v5/) (not supported from 7.9).
-- [Code reference API V6](https://iiko.github.io/front.api.sdk/v6/) (not supported from 8.8).
-- [Code reference API V7](https://iiko.github.io/front.api.sdk/v7/) (obsolete).
-- [Code reference API V8](https://iiko.github.io/front.api.sdk/v8/) (current).
-- [Code reference API V9](https://iiko.github.io/front.api.sdk/v9/) (preview).
-- [Help topics](https://iiko.github.io/front.api.doc/) (available only in russian at the moment).
-- [Official site of iiko APIs](https://ru.iiko.help/articles/#!api-documentations/getting-started).
-- [Sample](https://github.com/iiko/front.api.sdk/tree/master/sample).
+### 2. Плагин кассовой смены (CashShiftPlugin)
+```bash
+# macOS/Linux
+./build-cashshift.sh
 
+# Windows
+build-cashshift.bat
+```
+
+## 📋 Доступные плагины
+
+### 1. MyFirstPlugin - Минимальный плагин
+**Описание**: Простейший плагин для изучения основ iikoFront API
+**Файлы**:
+- `MyFirstPlugin/MinimalPlugin.cs`
+- `MyFirstPlugin/Manifest.xml`
+- `MyFirstPlugin/MinimalPlugin.csproj`
+
+**Функции**:
+- ✅ Базовая инициализация плагина
+- ✅ Логирование в iikoFront
+- ✅ Совместимость с API v9
+
+### 2. CashShiftPlugin - Плагин кассовой смены
+**Описание**: Полнофункциональный плагин для автоматического открытия кассовой смены
+**Файлы**:
+- `CashShiftPlugin/SimpleCashShiftPlugin.cs`
+- `CashShiftPlugin/CashShiftSettings.cs`
+- `CashShiftPlugin/Manifest.xml`
+- `CashShiftPlugin/SimpleCashShiftPlugin.csproj`
+
+**Функции**:
+- ✅ Кнопка в меню дополнений iikoFront
+- ✅ Диалог настроек с текущей конфигурацией
+- ✅ Выбор реальных кассовых регистраторов из системы
+- ✅ Настройка времени открытия смены через стандартное окно выбора времени
+- ✅ Автоматическое открытие по таймеру
+- ✅ Уведомления пользователя
+- ✅ Подробное логирование
+- ✅ Сохранение настроек
+
+## 🛠️ Скрипты сборки
+
+### Windows (BAT файлы):
+- `build-minimal.bat` - Сборка минимального плагина
+- `build-cashshift.bat` - Полная сборка плагина кассовой смены
+- `build-quick.bat` - Быстрая сборка
+- `clean.bat` - Очистка артефактов сборки
+
+### macOS/Linux (Shell скрипты):
+- `build-minimal.bat` - Сборка минимального плагина
+- `build-cashshift.sh` - Полная сборка плагина кассовой смены
+- `build-quick.sh` - Быстрая сборка
+- `clean.sh` - Очистка артефактов сборки
+
+## 📖 Документация
+
+- `BUILD_INSTRUCTIONS.md` - Подробные инструкции по сборке
+- `CashShiftPlugin/README.md` - Документация плагина кассовой смены
+- `MyFirstPlugin/README.md` - Документация минимального плагина
+- `docs/` - Официальная документация iikoFront API
+
+## 🔧 Требования
+
+- .NET Framework 4.7.2 или выше
+- iikoFront API v9
+- Windows (для iikoFront)
+- macOS/Linux (для разработки)
+
+## 📦 Установка плагинов
+
+1. Скомпилируйте плагин используя соответствующий скрипт
+2. Скопируйте файлы в папку Plugins iikoFront:
+   - `*.dll` - основной файл плагина
+   - `Manifest.xml` - манифест плагина
+3. Перезапустите iikoFront
+4. Плагин появится в меню "Дополнения"
+
+## 🐛 Устранение проблем
+
+### Ошибки компиляции:
+1. Запустите скрипт очистки (`clean.bat` или `./clean.sh`)
+2. Запустите полную сборку
+3. Проверьте сообщения об ошибках
+
+### Плагин не загружается:
+1. Проверьте правильность копирования файлов
+2. Убедитесь в совместимости версии iikoFront
+3. Проверьте логи iikoFront
+4. Убедитесь в наличии необходимых лицензий
+
+## 📝 Лицензии
+
+- **MyFirstPlugin**: LicenseModuleId = 21016318
+- **CashShiftPlugin**: LicenseModuleId = 21016318
+
+## 🤝 Поддержка
+
+При возникновении проблем:
+1. Проверьте логи iikoFront
+2. Убедитесь в правильности установки
+3. Проверьте совместимость версий
+4. Обратитесь к документации API
+
+## 📚 Полезные ссылки
+
+- [Официальная документация iikoFront API](https://api-ru.iiko.services/)
+- [Примеры плагинов](https://github.com/iiko/iiko-front-api-samples)
+- [Сообщество разработчиков](https://community.iiko.com/)
+
+---
+
+**Версия**: 1.0.0  
+**API**: iikoFront v9  
+**Последнее обновление**: Сентябрь 2025
